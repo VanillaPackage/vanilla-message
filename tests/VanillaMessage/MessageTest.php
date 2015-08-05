@@ -36,6 +36,27 @@ class MessageTest extends PHPUnit_Framework_TestCase
     }
 
     /**
+     * Test getOnly method.
+     * @covers Rentalhost\VanillaMessage\Message::getOnly
+     */
+    public function testGetOnly()
+    {
+        $messages = new Message;
+        $messages->push("error1", "error");
+        $messages->push("error2", "error");
+        $messages->push("success1", "success");
+        $messages->push("success2", "success");
+        $messages->push("error3", "error");
+
+        $messagesCompare = new Message;
+        $messagesCompare->push("error1", "error");
+        $messagesCompare->push("error2", "error");
+        $messagesCompare->push("error3", "error");
+
+        $this->assertEquals($messagesCompare, $messages->getOnly("error"));
+    }
+
+    /**
      * Test types definition.
      */
     public function testTypes()

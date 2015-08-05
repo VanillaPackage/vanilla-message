@@ -96,6 +96,24 @@ class Message
     }
 
     /**
+     * Returns a self with only the specified type.
+     * @param  string $type Type.
+     * @return self
+     */
+    public function getOnly($type)
+    {
+        $messages = new self;
+
+        foreach ($this->messages as $message) {
+            if ($message->type === $type) {
+                $messages->messages[] = $message;
+            }
+        }
+
+        return $messages;
+    }
+
+    /**
      * Returns all messages as an array.
      * @return MessageItem[]
      */
