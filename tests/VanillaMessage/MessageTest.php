@@ -4,6 +4,10 @@ namespace Rentalhost\VanillaMessage;
 
 use PHPUnit_Framework_TestCase;
 
+/**
+ * Class MessageTest
+ * @package Rentalhost\VanillaMessage
+ */
 class MessageTest extends PHPUnit_Framework_TestCase
 {
     /**
@@ -20,19 +24,19 @@ class MessageTest extends PHPUnit_Framework_TestCase
     {
         $messages = new Message;
 
-        $this->assertSame([], $messages->getArray());
-        $this->assertSame(0, $messages->count());
-        $this->assertFalse($messages->has());
+        static::assertSame([ ], $messages->getArray());
+        static::assertSame(0, $messages->count());
+        static::assertFalse($messages->has());
 
-        $messages->push("hello");
+        $messages->push('hello');
 
-        $this->assertSame(1, $messages->count());
-        $this->assertSame(1, $messages->countType(null));
-        $this->assertSame(0, $messages->countType("other"));
+        static::assertSame(1, $messages->count());
+        static::assertSame(1, $messages->countType(null));
+        static::assertSame(0, $messages->countType('other'));
 
-        $this->assertTrue($messages->has());
-        $this->assertTrue($messages->hasType(null));
-        $this->assertFalse($messages->hasType("other"));
+        static::assertTrue($messages->has());
+        static::assertTrue($messages->hasType(null));
+        static::assertFalse($messages->hasType('other'));
     }
 
     /**
@@ -42,18 +46,18 @@ class MessageTest extends PHPUnit_Framework_TestCase
     public function testGetOnly()
     {
         $messages = new Message;
-        $messages->push("error1", "error");
-        $messages->push("error2", "error");
-        $messages->push("success1", "success");
-        $messages->push("success2", "success");
-        $messages->push("error3", "error");
+        $messages->push('error1', 'error');
+        $messages->push('error2', 'error');
+        $messages->push('success1', 'success');
+        $messages->push('success2', 'success');
+        $messages->push('error3', 'error');
 
         $messagesCompare = new Message;
-        $messagesCompare->push("error1", "error");
-        $messagesCompare->push("error2", "error");
-        $messagesCompare->push("error3", "error");
+        $messagesCompare->push('error1', 'error');
+        $messagesCompare->push('error2', 'error');
+        $messagesCompare->push('error3', 'error');
 
-        $this->assertEquals($messagesCompare, $messages->getOnly("error"));
+        static::assertEquals($messagesCompare, $messages->getOnly('error'));
     }
 
     /**
@@ -63,50 +67,50 @@ class MessageTest extends PHPUnit_Framework_TestCase
     {
         $messages = new Message;
 
-        $this->assertFalse($messages->hasType(null));
-        $this->assertFalse($messages->hasType("error"));
-        $this->assertFalse($messages->hasType("warning"));
-        $this->assertFalse($messages->hasType("success"));
+        static::assertFalse($messages->hasType(null));
+        static::assertFalse($messages->hasType('error'));
+        static::assertFalse($messages->hasType('warning'));
+        static::assertFalse($messages->hasType('success'));
 
-        $messages->push("empty");
+        $messages->push('empty');
 
-        $this->assertTrue($messages->hasType(null));
-        $this->assertFalse($messages->hasType("error"));
-        $this->assertFalse($messages->hasType("warning"));
-        $this->assertFalse($messages->hasType("success"));
+        static::assertTrue($messages->hasType(null));
+        static::assertFalse($messages->hasType('error'));
+        static::assertFalse($messages->hasType('warning'));
+        static::assertFalse($messages->hasType('success'));
 
-        $messages->push("error1", "error");
-        $messages->push("error2", "error");
+        $messages->push('error1', 'error');
+        $messages->push('error2', 'error');
 
-        $this->assertTrue($messages->hasType(null));
-        $this->assertTrue($messages->hasType("error"));
-        $this->assertFalse($messages->hasType("warning"));
-        $this->assertFalse($messages->hasType("success"));
+        static::assertTrue($messages->hasType(null));
+        static::assertTrue($messages->hasType('error'));
+        static::assertFalse($messages->hasType('warning'));
+        static::assertFalse($messages->hasType('success'));
 
-        $messages->push("warning1", "warning");
-        $messages->push("warning2", "warning");
-        $messages->push("warning3", "warning");
+        $messages->push('warning1', 'warning');
+        $messages->push('warning2', 'warning');
+        $messages->push('warning3', 'warning');
 
-        $this->assertTrue($messages->hasType(null));
-        $this->assertTrue($messages->hasType("error"));
-        $this->assertTrue($messages->hasType("warning"));
-        $this->assertFalse($messages->hasType("success"));
+        static::assertTrue($messages->hasType(null));
+        static::assertTrue($messages->hasType('error'));
+        static::assertTrue($messages->hasType('warning'));
+        static::assertFalse($messages->hasType('success'));
 
-        $messages->push("success1", "success");
-        $messages->push("success2", "success");
-        $messages->push("success3", "success");
-        $messages->push("success4", "success");
+        $messages->push('success1', 'success');
+        $messages->push('success2', 'success');
+        $messages->push('success3', 'success');
+        $messages->push('success4', 'success');
 
-        $this->assertTrue($messages->hasType(null));
-        $this->assertTrue($messages->hasType("error"));
-        $this->assertTrue($messages->hasType("warning"));
-        $this->assertTrue($messages->hasType("success"));
+        static::assertTrue($messages->hasType(null));
+        static::assertTrue($messages->hasType('error'));
+        static::assertTrue($messages->hasType('warning'));
+        static::assertTrue($messages->hasType('success'));
 
-        $this->assertSame(10, $messages->count());
-        $this->assertSame(1, $messages->countType(null));
-        $this->assertSame(2, $messages->countType("error"));
-        $this->assertSame(3, $messages->countType("warning"));
-        $this->assertSame(4, $messages->countType("success"));
+        static::assertSame(10, $messages->count());
+        static::assertSame(1, $messages->countType(null));
+        static::assertSame(2, $messages->countType('error'));
+        static::assertSame(3, $messages->countType('warning'));
+        static::assertSame(4, $messages->countType('success'));
     }
 
     /**
@@ -116,18 +120,18 @@ class MessageTest extends PHPUnit_Framework_TestCase
     public function testMergeWith()
     {
         $messages1 = new Message;
-        $messages1->push("hello");
+        $messages1->push('hello');
 
         $messages2 = new Message;
-        $messages2->push("world");
+        $messages2->push('world');
 
-        $this->assertSame(1, $messages1->count());
-        $this->assertSame(1, $messages1->countType(null));
+        static::assertSame(1, $messages1->count());
+        static::assertSame(1, $messages1->countType(null));
 
         $messages1->mergeWith($messages2);
 
-        $this->assertSame(2, $messages1->count());
-        $this->assertSame(2, $messages1->countType(null));
+        static::assertSame(2, $messages1->count());
+        static::assertSame(2, $messages1->countType(null));
     }
 
     /**
@@ -137,34 +141,34 @@ class MessageTest extends PHPUnit_Framework_TestCase
     public function testGetIterator()
     {
         $messages = new Message;
-        $messages->push("hello");
-        $messages->push("world");
+        $messages->push('hello');
+        $messages->push('world');
 
         // Automatic.
-        $result = [];
+        $result = [ ];
 
         foreach ($messages->getIterator() as $message) {
             $result[] = $message->message;
         }
 
-        $this->assertSame([ "hello", "world" ], $result);
+        static::assertSame([ 'hello', 'world' ], $result);
 
         // Manual.
         $messagesIterator = $messages->getIterator();
         $messageCurrent = $messagesIterator->current();
 
-        $this->assertSame("hello", $messageCurrent->message);
-        $this->assertSame(null, $messageCurrent->type);
+        static::assertSame('hello', $messageCurrent->message);
+        static::assertSame(null, $messageCurrent->type);
 
         $messagesIterator->next();
         $messageCurrent = $messagesIterator->current();
 
-        $this->assertSame("world", $messageCurrent->message);
-        $this->assertSame(null, $messageCurrent->type);
+        static::assertSame('world', $messageCurrent->message);
+        static::assertSame(null, $messageCurrent->type);
 
         $messagesIterator->next();
         $messageCurrent = $messagesIterator->current();
 
-        $this->assertNull($messageCurrent);
+        static::assertNull($messageCurrent);
     }
 }

@@ -4,6 +4,10 @@ namespace Rentalhost\VanillaMessage;
 
 use ArrayIterator;
 
+/**
+ * Class Message
+ * @package Rentalhost\VanillaMessage
+ */
 class Message
 {
     /**
@@ -17,13 +21,14 @@ class Message
      */
     public function __construct()
     {
-        $this->messages = [];
+        $this->messages = [ ];
     }
 
     /**
      * Push a new message.
-     * @param  string $message  Message.
-     * @param  string $type     Type of message.
+     *
+     * @param  string $message Message.
+     * @param  string $type    Type of message.
      */
     public function push($message, $type = null)
     {
@@ -36,7 +41,8 @@ class Message
 
     /**
      * Merge this message list with another list.
-     * @param  self   $messageInstance Message instance.
+     *
+     * @param  self $messageInstance Message instance.
      */
     public function mergeWith(self $messageInstance)
     {
@@ -54,7 +60,9 @@ class Message
 
     /**
      * Count messages filtering by type.
+     *
      * @param  string $type Type to filter.
+     *
      * @return integer
      */
     public function countType($type)
@@ -76,12 +84,14 @@ class Message
      */
     public function has()
     {
-        return !empty($this->messages);
+        return (bool) count($this->messages);
     }
 
     /**
      * Return if a type was pushed.
-     * @param  string  $type Type to check.
+     *
+     * @param  string $type Type to check.
+     *
      * @return boolean
      */
     public function hasType($type)
@@ -97,7 +107,9 @@ class Message
 
     /**
      * Returns a self with only the specified type.
+     *
      * @param  string $type Type.
+     *
      * @return self
      */
     public function getOnly($type)

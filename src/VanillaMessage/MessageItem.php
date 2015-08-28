@@ -2,6 +2,10 @@
 
 namespace Rentalhost\VanillaMessage;
 
+/**
+ * Class MessageItem
+ * @package Rentalhost\VanillaMessage
+ */
 class MessageItem
 {
     /**
