@@ -40,6 +40,44 @@ class MessageTest extends PHPUnit_Framework_TestCase
     }
 
     /**
+     * Test getIterator method.
+     * @covers Rentalhost\VanillaMessage\Message::getIterator
+     */
+    public function testGetIterator()
+    {
+        $messages = new Message;
+        $messages->push('hello');
+        $messages->push('world');
+
+        // Automatic.
+        $result = [ ];
+
+        foreach ($messages->getIterator() as $message) {
+            $result[] = $message->message;
+        }
+
+        static::assertSame([ 'hello', 'world' ], $result);
+
+        // Manual.
+        $messagesIterator = $messages->getIterator();
+        $messageCurrent   = $messagesIterator->current();
+
+        static::assertSame('hello', $messageCurrent->message);
+        static::assertNull($messageCurrent->type);
+
+        $messagesIterator->next();
+        $messageCurrent = $messagesIterator->current();
+
+        static::assertSame('world', $messageCurrent->message);
+        static::assertNull($messageCurrent->type);
+
+        $messagesIterator->next();
+        $messageCurrent = $messagesIterator->current();
+
+        static::assertNull($messageCurrent);
+    }
+
+    /**
      * Test getOnly method.
      * @covers Rentalhost\VanillaMessage\Message::getOnly
      */
@@ -58,6 +96,27 @@ class MessageTest extends PHPUnit_Framework_TestCase
         $messagesCompare->push('error3', 'error');
 
         static::assertEquals($messagesCompare, $messages->getOnly('error'));
+    }
+
+    /**
+     * Test mergeWith method.
+     * @covers Rentalhost\VanillaMessage\Message::mergeWith
+     */
+    public function testMergeWith()
+    {
+        $messages1 = new Message;
+        $messages1->push('hello');
+
+        $messages2 = new Message;
+        $messages2->push('world');
+
+        static::assertSame(1, $messages1->count());
+        static::assertSame(1, $messages1->countType(null));
+
+        $messages1->mergeWith($messages2);
+
+        static::assertSame(2, $messages1->count());
+        static::assertSame(2, $messages1->countType(null));
     }
 
     /**
@@ -111,64 +170,5 @@ class MessageTest extends PHPUnit_Framework_TestCase
         static::assertSame(2, $messages->countType('error'));
         static::assertSame(3, $messages->countType('warning'));
         static::assertSame(4, $messages->countType('success'));
-    }
-
-    /**
-     * Test mergeWith method.
-     * @covers Rentalhost\VanillaMessage\Message::mergeWith
-     */
-    public function testMergeWith()
-    {
-        $messages1 = new Message;
-        $messages1->push('hello');
-
-        $messages2 = new Message;
-        $messages2->push('world');
-
-        static::assertSame(1, $messages1->count());
-        static::assertSame(1, $messages1->countType(null));
-
-        $messages1->mergeWith($messages2);
-
-        static::assertSame(2, $messages1->count());
-        static::assertSame(2, $messages1->countType(null));
-    }
-
-    /**
-     * Test getIterator method.
-     * @covers Rentalhost\VanillaMessage\Message::getIterator
-     */
-    public function testGetIterator()
-    {
-        $messages = new Message;
-        $messages->push('hello');
-        $messages->push('world');
-
-        // Automatic.
-        $result = [ ];
-
-        foreach ($messages->getIterator() as $message) {
-            $result[] = $message->message;
-        }
-
-        static::assertSame([ 'hello', 'world' ], $result);
-
-        // Manual.
-        $messagesIterator = $messages->getIterator();
-        $messageCurrent = $messagesIterator->current();
-
-        static::assertSame('hello', $messageCurrent->message);
-        static::assertSame(null, $messageCurrent->type);
-
-        $messagesIterator->next();
-        $messageCurrent = $messagesIterator->current();
-
-        static::assertSame('world', $messageCurrent->message);
-        static::assertSame(null, $messageCurrent->type);
-
-        $messagesIterator->next();
-        $messageCurrent = $messagesIterator->current();
-
-        static::assertNull($messageCurrent);
     }
 }

@@ -25,31 +25,6 @@ class Message
     }
 
     /**
-     * Push a new message.
-     *
-     * @param  string $message Message.
-     * @param  string $type    Type of message.
-     */
-    public function push($message, $type = null)
-    {
-        $messageItem = new MessageItem;
-        $messageItem->message = $message;
-        $messageItem->type = $type;
-
-        $this->messages[] = $messageItem;
-    }
-
-    /**
-     * Merge this message list with another list.
-     *
-     * @param  self $messageInstance Message instance.
-     */
-    public function mergeWith(self $messageInstance)
-    {
-        $this->messages = array_merge($this->messages, $messageInstance->messages);
-    }
-
-    /**
      * Count messages.
      * @return integer
      */
@@ -76,6 +51,44 @@ class Message
         }
 
         return $typeCount;
+    }
+
+    /**
+     * Returns all messages as an array.
+     * @return MessageItem[]
+     */
+    public function getArray()
+    {
+        return $this->messages;
+    }
+
+    /**
+     * Returns an array iterator over messages.
+     * @return ArrayIterator
+     */
+    public function getIterator()
+    {
+        return new ArrayIterator($this->messages);
+    }
+
+    /**
+     * Returns a self with only the specified type.
+     *
+     * @param  string $type Type.
+     *
+     * @return self
+     */
+    public function getOnly($type)
+    {
+        $messages = new self;
+
+        foreach ($this->messages as $message) {
+            if ($message->type === $type) {
+                $messages->messages[] = $message;
+            }
+        }
+
+        return $messages;
     }
 
     /**
@@ -106,40 +119,27 @@ class Message
     }
 
     /**
-     * Returns a self with only the specified type.
+     * Merge this message list with another list.
      *
-     * @param  string $type Type.
-     *
-     * @return self
+     * @param  self $messageInstance Message instance.
      */
-    public function getOnly($type)
+    public function mergeWith(self $messageInstance)
     {
-        $messages = new self;
-
-        foreach ($this->messages as $message) {
-            if ($message->type === $type) {
-                $messages->messages[] = $message;
-            }
-        }
-
-        return $messages;
+        $this->messages = array_merge($this->messages, $messageInstance->messages);
     }
 
     /**
-     * Returns all messages as an array.
-     * @return MessageItem[]
+     * Push a new message.
+     *
+     * @param  string $message Message.
+     * @param  string $type    Type of message.
      */
-    public function getArray()
+    public function push($message, $type = null)
     {
-        return $this->messages;
-    }
+        $messageItem          = new MessageItem;
+        $messageItem->message = $message;
+        $messageItem->type    = $type;
 
-    /**
-     * Returns an array iterator over messages.
-     * @return ArrayIterator
-     */
-    public function getIterator()
-    {
-        return new ArrayIterator($this->messages);
+        $this->messages[] = $messageItem;
     }
 }
