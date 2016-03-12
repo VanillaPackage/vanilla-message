@@ -150,6 +150,6 @@ class Message
      */
     protected function newMessageItem()
     {
-        return new MessageItem();
+        return new MessageItem($this);
     }
 }

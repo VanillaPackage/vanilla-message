@@ -92,12 +92,7 @@ class MessageTest extends PHPUnit_Framework_TestCase
         $messages->push('success2', 'success');
         $messages->push('error3', 'error');
 
-        $messagesCompare = new Message;
-        $messagesCompare->push('error1', 'error');
-        $messagesCompare->push('error2', 'error');
-        $messagesCompare->push('error3', 'error');
-
-        static::assertEquals($messagesCompare, $messages->getOnly('error'));
+        static::assertCount(3, $messages->getOnly('error')->getArray());
     }
 
     /**
@@ -119,6 +114,20 @@ class MessageTest extends PHPUnit_Framework_TestCase
 
         static::assertSame(2, $messages1->count());
         static::assertSame(2, $messages1->countType(null));
+    }
+
+    /**
+     * Test parent definition.
+     * @coversNothing
+     */
+    public function testMessageItemParent()
+    {
+        $messages = new Message;
+        $messages->push(null);
+
+        foreach ($messages->getIterator() as $message) {
+            static::assertSame($messages, $message->parent);
+        }
     }
 
     /**

@@ -9,6 +9,12 @@ namespace Rentalhost\VanillaMessage;
 class MessageItem
 {
     /**
+     * Stores MessageItem parent.
+     * @var Message
+     */
+    public $parent;
+
+    /**
      * Stores message text.
      * @var string
      */
@@ -25,4 +31,14 @@ class MessageItem
      * @var mixed
      */
     public $data;
+
+    /**
+     * MessageItem constructor.
+     *
+     * @param Message $parent Message instance.
+     */
+    public function __construct(Message $parent)
+    {
+        $this->parent = $parent;
+    }
 }

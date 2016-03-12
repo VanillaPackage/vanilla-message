@@ -16,6 +16,6 @@ class Message extends MessageBase
     /** @noinspection PhpMissingParentCallCommonInspection */
     protected function newMessageItem()
     {
-        return new MessageItem();
+        return new MessageItem($this);
     }
 }
