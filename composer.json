@@ -3,7 +3,7 @@
     "description": "The vanilla-message will help you to create a message list.",
 
     "require-dev": {
-        "phpunit/phpunit": "^4.7"
+        "phpunit/phpunit": "^5.2"
     },
 
     "autoload": {
