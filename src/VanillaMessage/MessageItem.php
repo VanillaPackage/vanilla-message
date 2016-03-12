@@ -19,4 +19,10 @@ class MessageItem
      * @var string
      */
     public $type;
+
+    /**
+     * Stores some kind of additional data.
+     * @var mixed
+     */
+    public $data;
 }

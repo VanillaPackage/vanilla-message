@@ -121,6 +121,21 @@ class MessageTest extends PHPUnit_Framework_TestCase
 
     /**
      * Test types definition.
+     * @coversNothing
+     */
+    public function testPushWithData()
+    {
+        $messages = new Message;
+        $messages->push(null, null, true);
+
+        foreach ($messages->getIterator() as $message) {
+            static::assertTrue($message->data);
+        }
+    }
+
+    /**
+     * Test types definition.
+     * @coversNothing
      */
     public function testTypes()
     {

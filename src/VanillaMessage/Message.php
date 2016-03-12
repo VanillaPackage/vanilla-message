@@ -131,14 +131,16 @@ class Message
     /**
      * Push a new message.
      *
-     * @param  string $message Message.
-     * @param  string $type    Type of message.
+     * @param string      $message Message.
+     * @param string|null $type    Type of message.
+     * @param mixed|null  $data    Additional data.
      */
-    public function push($message, $type = null)
+    public function push($message, $type = null, $data = null)
     {
         $messageItem          = new MessageItem;
         $messageItem->message = $message;
         $messageItem->type    = $type;
+        $messageItem->data    = $data;
 
         $this->messages[] = $messageItem;
     }
