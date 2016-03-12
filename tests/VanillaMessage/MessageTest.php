@@ -3,6 +3,7 @@
 namespace Rentalhost\VanillaMessage;
 
 use PHPUnit_Framework_TestCase;
+use Rentalhost\VanillaMessage\Mock\Message as MessageMocked;
 
 /**
  * Class MessageTest
@@ -19,6 +20,7 @@ class MessageTest extends PHPUnit_Framework_TestCase
      * @covers Rentalhost\VanillaMessage\Message::has
      * @covers Rentalhost\VanillaMessage\Message::hasType
      * @covers Rentalhost\VanillaMessage\Message::getArray
+     * @covers Rentalhost\VanillaMessage\Message::newMessageItem
      */
     public function testBasic()
     {
@@ -117,6 +119,20 @@ class MessageTest extends PHPUnit_Framework_TestCase
 
         static::assertSame(2, $messages1->count());
         static::assertSame(2, $messages1->countType(null));
+    }
+
+    /**
+     * Test a new MessageItem.
+     * @coversNothing
+     */
+    public function testNewMessageItemMock()
+    {
+        $messages = new MessageMocked();
+        $messages->push(null);
+
+        foreach ($messages->getIterator() as $message) {
+            static::assertTrue($message->mocked());
+        }
     }
 
     /**

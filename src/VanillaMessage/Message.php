@@ -137,11 +137,19 @@ class Message
      */
     public function push($message, $type = null, $data = null)
     {
-        $messageItem          = new MessageItem;
+        $messageItem          = $this->newMessageItem();
         $messageItem->message = $message;
         $messageItem->type    = $type;
         $messageItem->data    = $data;
 
         $this->messages[] = $messageItem;
+    }
+
+    /**
+     * Return a new instance of MessageItem.
+     */
+    protected function newMessageItem()
+    {
+        return new MessageItem();
     }
 }

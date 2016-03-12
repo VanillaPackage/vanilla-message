@@ -11,6 +11,11 @@
             "Rentalhost\\VanillaMessage\\": "src/VanillaMessage/"
         }
     },
+    "autoload-dev": {
+        "psr-4": {
+            "Rentalhost\\VanillaMessage\\Mock\\": "tests/Mock/"
+        }
+    },
 
     "authors": [
         {
