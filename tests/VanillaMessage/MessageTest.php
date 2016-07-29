@@ -114,6 +114,11 @@ class MessageTest extends PHPUnit_Framework_TestCase
 
         static::assertSame(2, $messages1->count());
         static::assertSame(2, $messages1->countType(null));
+
+        $messages1->mergeWith(null);
+
+        static::assertSame(2, $messages1->count());
+        static::assertSame(2, $messages1->countType(null));
     }
 
     /**

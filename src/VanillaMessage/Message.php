@@ -36,7 +36,7 @@ class Message
     /**
      * Count messages filtering by type.
      *
-     * @param  string $type Type to filter.
+     * @param string $type Type to filter.
      *
      * @return integer
      */
@@ -74,7 +74,7 @@ class Message
     /**
      * Returns a self with only the specified type.
      *
-     * @param  string $type Type.
+     * @param string $type Type.
      *
      * @return self
      */
@@ -103,7 +103,7 @@ class Message
     /**
      * Return if a type was pushed.
      *
-     * @param  string $type Type to check.
+     * @param string $type Type to check.
      *
      * @return boolean
      */
@@ -121,11 +121,13 @@ class Message
     /**
      * Merge this message list with another list.
      *
-     * @param  self $messageInstance Message instance.
+     * @param Message|null $messageInstance Message instance.
      */
-    public function mergeWith(self $messageInstance)
+    public function mergeWith($messageInstance)
     {
-        $this->messages = array_merge($this->messages, $messageInstance->messages);
+        if ($messageInstance instanceof self) {
+            $this->messages = array_merge($this->messages, $messageInstance->messages);
+        }
     }
 
     /**
