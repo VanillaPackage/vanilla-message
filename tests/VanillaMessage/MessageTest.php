@@ -26,7 +26,7 @@ class MessageTest extends PHPUnit_Framework_TestCase
     {
         $messages = new Message;
 
-        static::assertSame([ ], $messages->getArray());
+        static::assertSame([], $messages->getArray());
         static::assertSame(0, $messages->count());
         static::assertFalse($messages->has());
 
@@ -52,7 +52,7 @@ class MessageTest extends PHPUnit_Framework_TestCase
         $messages->push('world');
 
         // Automatic.
-        $result = [ ];
+        $result = [];
 
         foreach ($messages->getIterator() as $message) {
             $result[] = $message->message;

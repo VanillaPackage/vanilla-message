@@ -21,7 +21,7 @@ class Message
      */
     public function __construct()
     {
-        $this->messages = [ ];
+        $this->messages = [];
     }
 
     /**

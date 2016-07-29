@@ -9,10 +9,10 @@ namespace Rentalhost\VanillaMessage;
 class MessageItem
 {
     /**
-     * Stores MessageItem parent.
-     * @var Message
+     * Stores some kind of additional data.
+     * @var mixed
      */
-    public $parent;
+    public $data;
 
     /**
      * Stores message text.
@@ -21,16 +21,16 @@ class MessageItem
     public $message;
 
     /**
+     * Stores MessageItem parent.
+     * @var Message
+     */
+    public $parent;
+
+    /**
      * Stores message type.
      * @var string
      */
     public $type;
-
-    /**
-     * Stores some kind of additional data.
-     * @var mixed
-     */
-    public $data;
 
     /**
      * MessageItem constructor.
